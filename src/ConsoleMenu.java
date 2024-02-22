@@ -151,11 +151,14 @@ public class ConsoleMenu extends ActionMenuItem {
         reviewsMenu.addMenuItem(makeReviews);
         reviewsMenu.addMenuItem(viewReviews);
 
+        ConsoleMenu reports = new ConsoleMenu("Useful Reports");
+
         menu.addMenuItem(peopleMenu);
         menu.addMenuItem(itemsMenu);
         menu.addMenuItem(rentMenu);
         menu.addMenuItem(orderMenu);
         menu.addMenuItem(reviewsMenu);
+        menu.addMenuItem(reports);
         menu.execute(menu);
 
     }
