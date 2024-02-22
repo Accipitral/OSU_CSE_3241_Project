@@ -2,6 +2,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
+// Main class for the DroneCLI program
 public class DroneCLI {
     // Private variables for menu items
     private String[] menuItems = {
