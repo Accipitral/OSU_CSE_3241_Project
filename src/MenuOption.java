@@ -24,8 +24,8 @@ public class MenuOption {
         System.out.println(this.textDescription);
     }
 
-    public void select() {
-        this.action.execute();
+    public void select(ActionMenuItem callingAction) {
+        this.action.execute(callingAction);
     }
 
 }

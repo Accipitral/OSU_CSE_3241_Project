@@ -10,10 +10,13 @@ public class DeleteDataMenuAction extends ActionMenuItem {
     }
 
     @Override
-    public void execute() {
+    public void execute(ActionMenuItem callingAction) {
         int id = this.stdin.nextInt();//Need error checking.
         if (id > FakeDataStore.DataList1.size() || id < 1) {
             FakeDataStore.DataList1.remove(id - 1);
+        }
+        if (callingAction != null) {
+            callingAction.execute(null);
         }
     }
 }

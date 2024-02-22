@@ -10,7 +10,10 @@ public class PostDataMenuAction extends ActionMenuItem {
     }
 
     @Override
-    public void execute() {
-        FakeDataStore.DataList1.add(this.stdin.next());
+    public void execute(ActionMenuItem callingAction) {
+        FakeDataStore.DataList1.add(this.stdin.nextLine());
+        if (callingAction != null) {
+            callingAction.execute(null);
+        }
     }
 }

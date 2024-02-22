@@ -39,11 +39,12 @@ public class ConsoleMenu extends ActionMenuItem {
     }
 
     @Override
-    public void execute() {
-        this.print();
-        if (this.menuItems.size() < 1) {
-            return;
+    public void execute(ActionMenuItem callingAction) {
+
+        if (callingAction != null && !this.menuItems.contains(callingAction)) {
+            this.addMenuItem(callingAction);
         }
+        this.print();
         int userChoice = -1;
         do {
             System.out
@@ -64,7 +65,7 @@ public class ConsoleMenu extends ActionMenuItem {
 
         } while (userChoice < 1);
 
-        this.menuItems.get(userChoice - 1).execute();
+        this.menuItems.get(userChoice - 1).execute(this);
 
     }
 
@@ -77,7 +78,7 @@ public class ConsoleMenu extends ActionMenuItem {
         ConsoleMenu menu = new ConsoleMenu("Main Menu");
         //sub menus:
         ConsoleMenu peopleMenu = new ConsoleMenu("People");
-        //Menu Actions
+        //People Menu Actions
         ActionMenuItem registerPeople = new PostDataMenuAction(
                 "Register Person");
         ActionMenuItem deactivatePeople = new PostDataMenuAction(
@@ -90,17 +91,72 @@ public class ConsoleMenu extends ActionMenuItem {
         peopleMenu.addMenuItem(menu);
 
         ConsoleMenu itemsMenu = new ConsoleMenu("Items");
+        //Items Menu Actions
+        ConsoleMenu manageInventoryMenu = new ConsoleMenu("Manage Inventory");
+
+        //View Items Menu
+        ConsoleMenu viewInventoryMenu = new ConsoleMenu("View Inventory");
+
+        ActionMenuItem viewAvailableItems = new GetDataMenuAction(
+                "View Available Items");
+        ActionMenuItem viewUnavailableItems = new GetDataMenuAction(
+                "View Unavailable Items");
+        ActionMenuItem searchForItem = new GetDataMenuAction("Search For Item");
+
+        viewInventoryMenu.addMenuItem(viewAvailableItems);
+        viewInventoryMenu.addMenuItem(viewUnavailableItems);
+        viewInventoryMenu.addMenuItem(searchForItem);
+
+        ActionMenuItem changeItemStatus = new PostDataMenuAction(
+                "Change Item Status");
+
+        ActionMenuItem addOrRemoveInventory = new PostDataMenuAction(
+                "Add/Remove Inventory");
+
+        manageInventoryMenu.addMenuItem(viewInventoryMenu);
+        manageInventoryMenu.addMenuItem(changeItemStatus);
+        manageInventoryMenu.addMenuItem(addOrRemoveInventory);
+
+        itemsMenu.addMenuItem(manageInventoryMenu);
+
         ConsoleMenu rentMenu = new ConsoleMenu("Rent");
+
+        ConsoleMenu rentItems = new ConsoleMenu("Rent Items");
+        ConsoleMenu viewRentalDetails = new ConsoleMenu("View Rental Details");
+
+        //Same Menu as in Items Menu
+        rentItems.addMenuItem(viewAvailableItems);
+
+        rentMenu.addMenuItem(rentItems);
+        rentMenu.addMenuItem(viewRentalDetails);
+
         ConsoleMenu orderMenu = new ConsoleMenu("Order");
+
+        ActionMenuItem placeOrder = new PostDataMenuAction("Place Order");
+        ActionMenuItem editOrder = new PostDataMenuAction("Edit Order");
+        ActionMenuItem viewOrder = new GetDataMenuAction("View Order");
+        ActionMenuItem changeOrderStatus = new PostDataMenuAction(
+                "Change Order Status");
+
+        orderMenu.addMenuItem(placeOrder);
+        orderMenu.addMenuItem(editOrder);
+        orderMenu.addMenuItem(viewOrder);
+        orderMenu.addMenuItem(changeOrderStatus);
+
         ConsoleMenu reviewsMenu = new ConsoleMenu("Reviews");
+
+        ActionMenuItem makeReviews = new PostDataMenuAction("Make Review");
+        ActionMenuItem viewReviews = new GetDataMenuAction("View Reviews");
+
+        reviewsMenu.addMenuItem(makeReviews);
+        reviewsMenu.addMenuItem(viewReviews);
 
         menu.addMenuItem(peopleMenu);
         menu.addMenuItem(itemsMenu);
         menu.addMenuItem(rentMenu);
         menu.addMenuItem(orderMenu);
         menu.addMenuItem(reviewsMenu);
-        menu.addMenuItem(menu);
-        menu.execute();
+        menu.execute(menu);
 
     }
 }
