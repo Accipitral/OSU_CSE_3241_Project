@@ -15,6 +15,11 @@ public class MenuOption {
         this.action = MenuAction;
     }
 
+    @Override
+    public String toString() {
+        return this.textDescription;
+    }
+
     public void print() {
         System.out.println(this.textDescription);
     }

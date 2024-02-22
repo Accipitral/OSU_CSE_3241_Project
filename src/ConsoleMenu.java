@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @author happy
  *
  */
-public class ConsoleMenu implements ActionMenuItem {
+public class ConsoleMenu extends ActionMenuItem {
 
     private String menuHeader;
     private ArrayList<ActionMenuItem> menuItems;
@@ -20,6 +20,11 @@ public class ConsoleMenu implements ActionMenuItem {
         this.menuHeader = headerText;
         this.menuItems = new ArrayList<ActionMenuItem>();
         this.inputStream = new Scanner(System.in);
+    }
+
+    @Override
+    public String toString() {
+        return this.menuHeader;
     }
 
     public void addMenuItem(ActionMenuItem item) {
@@ -36,6 +41,9 @@ public class ConsoleMenu implements ActionMenuItem {
     @Override
     public void execute() {
         this.print();
+        if (this.menuItems.size() < 1) {
+            return;
+        }
         int userChoice = -1;
         do {
             System.out
@@ -66,6 +74,33 @@ public class ConsoleMenu implements ActionMenuItem {
      * @param args
      */
     public static void main(String[] args) {
-        ConsoleMenu menu = new ConsoleMenu("Main Menu\n");
+        ConsoleMenu menu = new ConsoleMenu("Main Menu");
+        //sub menus:
+        ConsoleMenu peopleMenu = new ConsoleMenu("People");
+        //Menu Actions
+        ActionMenuItem registerPeople = new PostDataMenuAction(
+                "Register Person");
+        ActionMenuItem deactivatePeople = new PostDataMenuAction(
+                "Deactivate Person");
+        ActionMenuItem viewPeople = new GetDataMenuAction("View Person");
+
+        peopleMenu.addMenuItem(registerPeople);
+        peopleMenu.addMenuItem(deactivatePeople);
+        peopleMenu.addMenuItem(viewPeople);
+        peopleMenu.addMenuItem(menu);
+
+        ConsoleMenu itemsMenu = new ConsoleMenu("Items");
+        ConsoleMenu rentMenu = new ConsoleMenu("Rent");
+        ConsoleMenu orderMenu = new ConsoleMenu("Order");
+        ConsoleMenu reviewsMenu = new ConsoleMenu("Reviews");
+
+        menu.addMenuItem(peopleMenu);
+        menu.addMenuItem(itemsMenu);
+        menu.addMenuItem(rentMenu);
+        menu.addMenuItem(orderMenu);
+        menu.addMenuItem(reviewsMenu);
+        menu.addMenuItem(menu);
+        menu.execute();
+
     }
 }

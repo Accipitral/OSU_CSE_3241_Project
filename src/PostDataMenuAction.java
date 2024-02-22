@@ -1,11 +1,12 @@
 import java.util.Scanner;
 
-public class PostDataMenuAction implements ActionMenuItem {
+public class PostDataMenuAction extends ActionMenuItem {
 
     public Scanner stdin;
 
-    public PostDataMenuAction() {
+    public PostDataMenuAction(String description) {
         this.stdin = new Scanner(System.in);
+        this.textDescription = description;
     }
 
     @Override

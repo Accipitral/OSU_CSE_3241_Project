@@ -1,11 +1,12 @@
 import java.util.Scanner;
 
-public class DeleteDataMenuAction implements ActionMenuItem {
+public class DeleteDataMenuAction extends ActionMenuItem {
 
     public Scanner stdin;
 
-    public DeleteDataMenuAction() {
+    public DeleteDataMenuAction(String description) {
         this.stdin = new Scanner(System.in);
+        this.textDescription = description;
     }
 
     @Override
