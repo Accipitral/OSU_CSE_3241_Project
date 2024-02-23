@@ -79,11 +79,12 @@ public class ConsoleMenu extends ActionMenuItem {
         //sub menus:
         ConsoleMenu peopleMenu = new ConsoleMenu("People");
         //People Menu Actions
-        ActionMenuItem registerPeople = new PostDataMenuAction(
+        ActionMenuItem registerPeople = new PostCommunityMemberDataAction(
                 "Register Person");
         ActionMenuItem deactivatePeople = new PostDataMenuAction(
                 "Deactivate Person");
-        ActionMenuItem viewPeople = new GetDataMenuAction("View Person");
+        ActionMenuItem viewPeople = new GetCommunityMembersDataAction(
+                "View Person");
 
         peopleMenu.addMenuItem(registerPeople);
         peopleMenu.addMenuItem(deactivatePeople);
@@ -121,13 +122,21 @@ public class ConsoleMenu extends ActionMenuItem {
 
         ConsoleMenu rentMenu = new ConsoleMenu("Rent");
 
-        ConsoleMenu rentItems = new ConsoleMenu("Rent Items");
+        ConsoleMenu rentItems = new ConsoleMenu("Rent Equipment");
+        ConsoleMenu returnItems = new ConsoleMenu("Return Equipment");
+        ConsoleMenu scheduleItemDelivery = new ConsoleMenu(
+                "Schedule Drone Equipment Delivery");
+        ConsoleMenu scheduleItemPickup = new ConsoleMenu(
+                "Schedule Equipment Pickup");
         ConsoleMenu viewRentalDetails = new ConsoleMenu("View Rental Details");
 
         //Same Menu as in Items Menu
         rentItems.addMenuItem(viewAvailableItems);
 
         rentMenu.addMenuItem(rentItems);
+        rentMenu.addMenuItem(scheduleItemDelivery);
+        rentMenu.addMenuItem(scheduleItemPickup);
+        rentMenu.addMenuItem(returnItems);
         rentMenu.addMenuItem(viewRentalDetails);
 
         ConsoleMenu orderMenu = new ConsoleMenu("Order");
